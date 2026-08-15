@@ -6,6 +6,8 @@ import {About} from "../components/landing_page/about/About.jsx";
 import { Support } from "../components/landing_page/support/Support.jsx";
 import { PricingPage } from "../components/landing_page/pricing/PricingPage.jsx";
 import {  Products } from "../components/landing_page/products/Products.jsx";
+import Login from "../pages/Login.jsx"
+import SignupPage from "../pages/signup.jsx"
 
 
 const router=createBrowserRouter([
@@ -19,7 +21,15 @@ const router=createBrowserRouter([
 
             },
             {
-              path:"/signup",
+                path:"/login",
+                element:<Login/>
+            },
+            {
+               path:"/signup",
+               element:<SignupPage/>
+            },
+            {
+              path:"/signuppage",
               element:<Signup/>
             },
             {

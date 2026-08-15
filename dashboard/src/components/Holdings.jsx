@@ -1,5 +1,6 @@
 import {useState,useEffect} from 'react'
 import axios from "axios";
+import { Vertical } from './Vertical.jsx';
 
 // import { holdings } from "../data/data.js";
 
@@ -10,18 +11,31 @@ function Holdings() {
 
   const [allHoldings,setAllHoldings]=useState([]);
   useEffect(()=>{
-    axios.get("http://localhost:3002/addHoldings").then((res)=>{
+    axios.get("http://localhost:3000/addHoldings").then((res)=>{
       console.log(res.data);
       setAllHoldings(res.data);
     })
 
   },[]);
 
+  const labels =allHoldings.map((subarray)=>[subarray.name]);
+
+  const data={
+    labels,
+    datasets:[
+      {
+        label:"Stock Price",
+        data:allHoldings.map((stocks)=>stocks.price),
+        backgroundColor:"rgba(255,99,132,0.5)"
+      }
+    ]
+  } 
+
 
   return (
     <div className="h-full w-full ">
-      <h3>Holdings({allHoldings.length})</h3>
-      <div className="overflow-x-auto">
+      <h3 className='text-2xl m-10 font-bold'>Holdings({allHoldings.length})</h3>
+      <div className="overflow-x-auto mb-20">
         <table className="w-full">
           <thead>
             <tr className="border-b border-gray-300 text-gray-500 text-sm">
@@ -64,7 +78,9 @@ function Holdings() {
           })}
         </table>
       </div>
+      <Vertical  data={data}/>
     </div>
+    
   );
 }
 export default Holdings;

@@ -1,11 +1,11 @@
-import zerodha from "../../assets/logo.svg"
+import zerodha from "../../assets/TradeX.png"
 import {Link } from "react-router-dom"
 
 export function Navbar(){
     return(
         <div className="fixed top-0 left-0 w-full h-18 bg-gray-50 grid grid-cols-10">
             <div className="col-span-2 ">
-                <Link to="/"><img className="w-[200px] h-15 p-2 ml-3.5 " src={zerodha} alt="logo" /></Link>
+                <Link to="/"><img className="w-[200px] h-20 p-2 ml-3.5 " src={zerodha} alt="logo" /></Link>
             </div>
             <div className="col-span-4"></div>
             <div className="col-span-4 ml-12 h-full">
@@ -14,7 +14,7 @@ export function Navbar(){
                     <li><Link className="text-[20px]" to="/pricing">Pricing</Link></li>
                     <li><Link  className="text-[20px]" to="/product">Product</Link></li>
                     <li><Link className="text-[20px]" to="/support">Support</Link></li>
-                    <li><Link className="text-[20px]" to="/signup">Sign Up</Link></li>
+                    <li><Link className="text-[20px]" to="/signuppage">Sign Up</Link></li>
                 </ul>
             </div>
 

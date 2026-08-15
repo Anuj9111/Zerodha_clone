@@ -1,22 +1,35 @@
 // import {positions} from "../data/data.js";
 import {useState,useEffect} from 'react'
 import axios from "axios";
+import { Vertical } from './Vertical.jsx';
 
 
 function Positions(){
 
   const [allPositions,setAllPositions]=useState([]);
   useEffect(()=>{
-    axios.get("http://localhost:3002/addPositions").then((res)=>{
+    axios.get("http://localhost:3000/addPositions").then((res)=>{
       console.log(res.data);
       setAllPositions(res.data);
     })
 
   },[]);
+  const labels =allPositions.map((subarray)=>[subarray.name]);
+  const data ={
+    labels,
+    datasets:[
+      {
+        label:"Stock Price",
+        data:allPositions.map((stocks)=>stocks.price),
+        backgroundColor:"rgba(255,99,132,0.5)"
+      }
+    ]
+  }
+
     return (
         <div className="h-full w-full ">
-              <h3>Positions ({allPositions.length})</h3>
-              <div className="overflow-x-auto">
+              <h3 className='m-10 text-2xl font-bold'>Positions ({allPositions.length})</h3>
+              <div className="overflow-x-auto mb-20">
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-gray-300 text-gray-500 text-sm">
@@ -58,6 +71,7 @@ function Positions(){
                   })}
                 </table>
               </div>
+              <Vertical className="mt-30" data={data}/>
             </div>
     )
 }

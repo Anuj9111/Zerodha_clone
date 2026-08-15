@@ -1,16 +1,45 @@
-import {Tooltip,Grow} from '@mui/material'
+import {Tooltip} from '@mui/material'
 import { useState, useContext } from "react";
 import GeneralContext from "./GeneralContext";
 import { watchlist } from '../data/data.js';
 import {KeyboardArrowDown} from '@mui/icons-material'
 import {KeyboardArrowUp} from '@mui/icons-material'
 import { MoreHoriz,BarChartOutlined } from '@mui/icons-material';
+import DoughnutChart from './DoughnoutChart.jsx';
 
 const WatchList = () => {
+   const label =watchlist.map((subarray)=>(subarray.name));
+   const data={
+     labels:label,
+     datasets: [
+    {
+      label: 'Price',
+      data: watchlist.map((stocks)=>stocks.price),
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(54, 162, 235, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(75, 192, 192, 0.5)',
+        'rgba(153, 102, 255, 0.5)',
+        'rgba(255, 159, 64, 0.5)',
+      ],
+      borderColor: [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)',
+        'rgba(255, 159, 64, 1)',
+      ],
+      borderWidth: 1,
+    },
+  ],
+   }
+  
   return (
-    <div className="w-full  bg-white rounded-lg shadow-md border border-gray-200">
+    <div className="w-full  h-full ">
       {/* Search Section */}
-      <div className=" flex items-center justify-between p-4 border-b border-gray-200">
+      <div className=" flex items-center justify-between p-4 border-b border-gray-200 mb-10">
         <input
           type="text"
           name="search"
@@ -25,7 +54,7 @@ const WatchList = () => {
       </div>
 
       {/* Watchlist */}
-      <ul className="divide-y divide-gray-200">
+      <ul className="divide-y divide-gray-200 mb-20">
         {/* Watchlist items will be rendered here */}
         {watchlist.map((stock,index)=>{
             return(
@@ -35,6 +64,7 @@ const WatchList = () => {
             
         })}
       </ul>
+      <DoughnutChart className="mt-30" data={data}/>
     </div>
   );
 };
@@ -124,9 +154,9 @@ const generalContext = useContext(GeneralContext);
           title="Buy (B)"
           placement="top"
           arrow
-          TransitionComponent={Grow}
+          
         >
-          <button onClick={handleBuyClick}>
+          <button className='w-12 rounded-xs ml-5 text-white bg-green-500' onClick={handleBuyClick}>
             Buy
           </button>
         </Tooltip>
@@ -137,9 +167,9 @@ const generalContext = useContext(GeneralContext);
           title="Sell (S)"
           placement="top"
           arrow
-          TransitionComponent={Grow}
+          
         >
-          <button>Sell</button>
+          <button className='w-12 rounded-xs m-5 text-white bg-red-500'>Sell</button>
         </Tooltip>
       </span>
 
@@ -148,9 +178,9 @@ const generalContext = useContext(GeneralContext);
           title="Analytics (A)"
           placement="top"
           arrow
-          TransitionComponent={Grow}
+          
         >
-          <button>
+          <button className='w-8 mr-5 border rounded-xs'>
             <BarChartOutlined />
           </button>
         </Tooltip>
@@ -161,9 +191,9 @@ const generalContext = useContext(GeneralContext);
           title="More"
           placement="top"
           arrow
-          TransitionComponent={Grow}
+          
         >
-          <button>
+          <button className='w-8 border rounded-xs'>
             <MoreHoriz />
           </button>
         </Tooltip>

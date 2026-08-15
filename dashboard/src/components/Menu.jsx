@@ -3,15 +3,13 @@ import { useState } from "react";
 
 function Menu() {
   const [selectedMenu, setSelectedMenu] = useState(0);
-  const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
+  
 
   const handleMenuClick = (index) => {
     setSelectedMenu(index);
   };
 
-  const handleProfileClick = (index) => {
-    setIsProfileDropdownOpen(!isProfileDropdownOpen);
-  };
+ 
 
   const menuClass = "menu";
   const activeMenuClass = "menu selected";
@@ -88,12 +86,8 @@ function Menu() {
             </Link>
           </li>
         </ul>
-        <div className="w-px h-6 bg-black"></div>
-        <div className="flex gap-2" onClick={handleProfileClick}>
-          <div className="border rounded">P</div>
-          <p>USERID</p>
-        </div>
-        {/* {isProfileDropdownOpen} */}
+        
+        
       </div>
     </div>
   );

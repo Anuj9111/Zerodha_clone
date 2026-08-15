@@ -2,7 +2,7 @@ import { FiSearch } from "react-icons/fi";
 
 export function Hero() {
   return (
-    <div className=" flex flex-col gap-15 w-full px-40  h-60 bg-gray-200 pt-10">
+    <div className=" flex flex-col gap-15 w-full px-40  h-60 bg-gray-100 pt-10">
       <div className="flex justify-between w-full ">
         <h1 className="text-4xl font-bold">Support Portal</h1>
         <button className=" text-xl text-white bg-blue-500 rounded-[5px] w-[140px] hover:bg-black">

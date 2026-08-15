@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 export function Hero() {
   return (
     <div className="w-full">
-      <div className="w-full flex flex-col items-center my-20 gap-5  ">
+      <div className="w-full flex flex-col items-center my-20 gap-8  ">
         <h1 className="text-4xl">
           Open a free demat and trading account online
         </h1>
@@ -20,14 +20,15 @@ export function Hero() {
         <div className="col-span-6">
           <img className="w-[550px] h-[400px]" src={signup} alt="signup" />
         </div>
-        <div className="col-span-6 gap-4 flex flex-col">
+        <div className="col-span-6 gap-4 flex flex-col gap-6">
           <h1 className="text-2xl">Signup Now</h1>
           <p className="text-[20px] text-gray-600">
             Or track your existing application
           </p>
-          <input type="number" name="mobile" />
-          <button className=" text-[25px] border border-1 rounded-[10px] bg-blue-600 text-white w-[250px] h-[50px]">
-            Get OTP
+          {/* <input type="number" name="mobile" /> */}
+          <button >
+            <Link className="border bg-blue-600  text-white  hover:bg-black text-2xl w-[230px] h-[50px] rounded-xl px-[20px] py-3 " to="/signup">Sign up</Link>
+
           </button>
           <p className="text-gray-600">
             By proceeding, you agree to the Zerodha{" "}

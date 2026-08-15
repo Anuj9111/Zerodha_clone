@@ -1,6 +1,8 @@
 import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import cookieParser from "cookie-parser";
+import authRoute from "./routes/auth.route.js"
 import Holding from "./model/HoldingsModel.js";
 import Position from "./model/PositionModel.js"
 import Order from "./model/OrderModel.js"
@@ -9,15 +11,28 @@ import cors from "cors";
 
 dotenv.config();
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
+app.use(
+  cors({
+    origin: ["http://localhost:5173","http://localhost:5174",],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
+
+app.use("/",authRoute);
+
 
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL,{
+    
+  })
   .then(() => {
     console.log(" MongoDB Connected");
   })
@@ -166,7 +181,17 @@ app.post("/newOrder", async (req, res) => {
   res.send("Order saved");
 });
 
+app.get("/allOrders", async (req, res) => {
+  try {
+    const allOrders = await Order.find({});
+    res.json(allOrders);
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch orders",
+    });
+  }
+});
 
-app.listen(3002, () => {
-  console.log("App started");
+app.listen(PORT, () => {
+  console.log(`App is listening to the port ${PORT}`);
 });
