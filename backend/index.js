@@ -30,7 +30,7 @@ app.use("/",authRoute);
 
 
 mongoose
-  .connect(process.env.MONGO_URL,{
+  .connect(process.env.MONGO_URI,{
     
   })
   .then(() => {
@@ -147,8 +147,13 @@ mongoose
 //   res.send("Done!");
 // });
 
-// app.get("/addHoldings");
-
+// app.ge  
+app.get("/", (req, res) => {
+    res.json({
+        message: "Backend is running",
+        status: "OK"
+    });
+});
 app.get('/addHoldings',async(req,res)=>{
   let allHoldings = await Holding.find({});
   res.json(allHoldings);
