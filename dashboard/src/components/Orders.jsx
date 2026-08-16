@@ -6,7 +6,7 @@ import axios from "axios";
 const Orders = () => {
   const[orders,setorders]=useState([])
   useEffect(()=>{
-    axios.get("http://localhost:3000/allOrders").then((res)=>{
+    axios.get("https://zerodha-clone-03wt.onrender.com/allOrders").then((res)=>{
        setorders(res.data);
     })
     .catch((error)=>{console.log(error);})

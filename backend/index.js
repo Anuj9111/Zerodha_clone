@@ -18,7 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: ["http://localhost:5173","http://localhost:5174",],
+    origin: ["http://localhost:5173","http://localhost:5174","https://your-frontend.onrender.com","https://your-dashboard.onrender.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
