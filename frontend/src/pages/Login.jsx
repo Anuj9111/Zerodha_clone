@@ -32,7 +32,7 @@ const Login = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://zerodha-clone-03wt.onrender.com/login",
+        `${import.meta.env.VITE_API_URL}/login`,
         {
           ...inputValue,
         },
@@ -43,7 +43,7 @@ const Login = () => {
       if (success) {
         handleSuccess(message);
         setTimeout(() => {
-          window.location.href = "https://your-dashboard.onrender.com";
+          window.location.href = import.meta.env.VITE_DASHBOARD_URL;
         }, 1000);
       } else {
         handleError(message);

@@ -6,7 +6,7 @@ import axios from "axios";
 const Orders = () => {
   const[orders,setorders]=useState([])
   useEffect(()=>{
-    axios.get("https://zerodha-clone-03wt.onrender.com/allOrders").then((res)=>{
+    axios.get(`${import.meta.env.VITE_API_URL}/allOrders`).then((res)=>{
        setorders(res.data);
     })
     .catch((error)=>{console.log(error);})

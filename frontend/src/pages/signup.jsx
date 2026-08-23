@@ -32,7 +32,7 @@ const SignupPage  = () => {
     e.preventDefault();
     try {
       const { data } = await axios.post(
-        "https://zerodha-clone-03wt.onrender.com/signup",
+        `${import.meta.env.VITE_API_URL}/signup`,
         {
           ...inputValue,
         },
