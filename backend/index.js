@@ -14,22 +14,19 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-// app.use(cors());
 
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "http://localhost:5174",
-      "https://zerodha-clone-1-xh6h.onrender.com",
-      "https://zerodha-clone-dashboard-034y.onrender.com",
-      
+      "https://zerodha-clone-seven-flame.vercel.app",
+      "https://zerodha-clone-tj5v.vercel.app"
     ],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
