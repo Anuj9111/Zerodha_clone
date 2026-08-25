@@ -14,7 +14,7 @@ const BuyActionWindow = ({ uid }) => {
     if (submitting) return;
     setSubmitting(true);
     try {
-      const apiUrl = (import.meta.env.VITE_API_URL || "https://zerodha-clone-03wt.onrender.com").replace(/\/$/, "");
+      const apiUrl = (import.meta.env.VITE_API_URL || "https://zerodha-clone-a3w8.onrender.com").replace(/\/$/, "");
       await axios.post(`${apiUrl}/newOrder`, {
         name: uid,
         qty: Number(stockQuantity) || 1,

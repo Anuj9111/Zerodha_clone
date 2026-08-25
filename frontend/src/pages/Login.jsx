@@ -35,7 +35,7 @@ const Login = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const apiUrl = (import.meta.env.VITE_API_URL || "https://zerodha-clone-03wt.onrender.com").replace(/\/$/, "");
+      const apiUrl = (import.meta.env.VITE_API_URL || "https://zerodha-clone-a3w8.onrender.com").replace(/\/$/, "");
       const { data } = await axios.post(
         `${apiUrl}/login`,
         {

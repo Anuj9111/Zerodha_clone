@@ -7,7 +7,7 @@ const Orders = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const apiUrl = (import.meta.env.VITE_API_URL || "https://zerodha-clone-03wt.onrender.com").replace(/\/$/, "");
+    const apiUrl = (import.meta.env.VITE_API_URL || "https://zerodha-clone-a3w8.onrender.com").replace(/\/$/, "");
     axios
       .get(`${apiUrl}/allOrders`)
       .then((res) => {
