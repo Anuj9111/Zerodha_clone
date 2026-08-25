@@ -2,15 +2,18 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const SignupPage  = () => {
+const SignupPage = () => {
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState({
     email: "",
     password: "",
     username: "",
   });
+  const [loading, setLoading] = useState(false);
   const { email, password, username } = inputValue;
+
   const handleOnChange = (e) => {
     const { name, value } = e.target;
     setInputValue({
@@ -23,6 +26,7 @@ const SignupPage  = () => {
     toast.error(err, {
       position: "bottom-left",
     });
+
   const handleSuccess = (msg) =>
     toast.success(msg, {
       position: "bottom-right",
@@ -30,25 +34,33 @@ const SignupPage  = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
+      const apiUrl = (import.meta.env.VITE_API_URL || "https://zerodha-clone-03wt.onrender.com").replace(/\/$/, "");
       const { data } = await axios.post(
-        `${import.meta.env.VITE_API_URL}/signup`,
+        `${apiUrl}/signup`,
         {
           ...inputValue,
         },
         { withCredentials: true }
       );
-      const { success, message } = data;
+      const { success, message, token } = data;
       if (success) {
-        handleSuccess(message);
+        if (token) {
+          localStorage.setItem("token", token);
+        }
+        handleSuccess(message || "Account created successfully!");
         setTimeout(() => {
           navigate("/login");
         }, 1000);
       } else {
-        handleError(message);
+        handleError(message || "Signup failed");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Signup error:", error);
+      handleError(error.response?.data?.message || "Server error during signup. Please try again.");
+    } finally {
+      setLoading(false);
     }
     setInputValue({
       ...inputValue,
@@ -59,42 +71,54 @@ const SignupPage  = () => {
   };
 
   return (
-    <div className="h-full w-full flex flex-col">
-      <h2 className="text-4xl font-bold m-auto my-10 ">Signup Account</h2>
-      <form onSubmit={handleSubmit} className=" flex flex-col gap-10 m-auto w-120 border border-black rounded-xl h-130 p-15 mb-20">
+    <div className="h-full w-full flex flex-col items-center justify-center py-10">
+      <h2 className="text-4xl font-bold mb-8">Signup Account</h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full max-w-md border border-gray-300 rounded-xl p-8 shadow-sm bg-white">
         <div>
-          <label htmlFor="email" className="text-2xl">Email</label>
-          <input className="border border-black w-90 h-10 rounded-sm  px-5"
+          <label htmlFor="email" className="text-lg font-medium block mb-2">Email</label>
+          <input
+            className="border border-gray-300 w-full h-11 rounded-md px-4 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             type="email"
             name="email"
+            required
             value={email}
             placeholder="Enter your email"
             onChange={handleOnChange}
           />
         </div>
         <div>
-          <label htmlFor="email" className="text-2xl">Username</label>
-          <input className="border border-black w-90 h-10 rounded-sm px-5"
+          <label htmlFor="username" className="text-lg font-medium block mb-2">Username</label>
+          <input
+            className="border border-gray-300 w-full h-11 rounded-md px-4 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             type="text"
             name="username"
+            required
             value={username}
             placeholder="Enter your username"
             onChange={handleOnChange}
           />
         </div>
         <div>
-          <label htmlFor="password" className="text-2xl">Password</label>
-          <input className="border border-black w-90 h-10 rounded-sm  px-5"
+          <label htmlFor="password" className="text-lg font-medium block mb-2">Password</label>
+          <input
+            className="border border-gray-300 w-full h-11 rounded-md px-4 outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
             type="password"
             name="password"
+            required
             value={password}
             placeholder="Enter your password"
             onChange={handleOnChange}
           />
         </div>
-        <div className="m-auto"><button type="submit" className="border-1 text-xl border-black text-white bg-blue-600 w-20 h-10 rounded-sm m-auto hover:bg-white hover:text-black">Submit</button></div>
-        <span className="text-xl m-auto">
-          Already have an account? <Link className="text-blue-500 hover:text-black" to={"/login"}>Login</Link>
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full py-3 text-white bg-blue-600 font-semibold rounded-md hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer"
+        >
+          {loading ? "Creating Account..." : "Submit"}
+        </button>
+        <span className="text-sm text-center text-gray-600">
+          Already have an account? <Link className="text-blue-500 hover:underline font-medium" to={"/login"}>Login</Link>
         </span>
       </form>
       <ToastContainer />
@@ -102,4 +126,4 @@ const SignupPage  = () => {
   );
 };
 
-export default SignupPage ;
+export default SignupPage;
